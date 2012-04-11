@@ -7,6 +7,8 @@ en:
     view: "View"
     edit: "Edit"
     delete: "Delete"
+    activate: "Activate"
+    deactivate: "Deactivate"
     delete_confirmation: "Are you sure you want to delete this?"
     new_model: "New %{model}"
     create_model: "New %{model}"

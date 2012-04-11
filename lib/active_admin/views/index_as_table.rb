@@ -131,7 +131,7 @@ module ActiveAdmin
       # methods for quickly displaying items on the index page
       #
       class IndexTableFor < ::ActiveAdmin::Views::TableFor
-        
+
         # Display a column for checkbox
         def selectable_column
           return unless active_admin_config.batch_actions.any?
@@ -150,15 +150,20 @@ module ActiveAdmin
           }.merge(options)
           column options[:name] do |resource|
 			      links = ''.html_safe
-            if controller.action_methods.include?('show')
-              links += link_to I18n.t('active_admin.view'), resource_path(resource), :class => "member_link view_link"
-            end
-            if controller.action_methods.include?('edit')
-              links += link_to I18n.t('active_admin.edit'), edit_resource_path(resource), :class => "member_link edit_link"
-            end
-            if controller.action_methods.include?('destroy')
-              links += link_to I18n.t('active_admin.delete'), resource_path(resource), :method => :delete, :confirm => I18n.t('active_admin.delete_confirmation'), :class => "member_link delete_link"
-            end            
+              if controller.action_methods.include?('show')
+                links += link_to I18n.t('active_admin.view'), resource_path(resource), :class => "member_link view_link"
+              end
+              if controller.action_methods.include?('edit')
+                links += link_to I18n.t('active_admin.edit'), edit_resource_path(resource), :class => "member_link edit_link"
+              end
+              if controller.action_methods.include?('destroy') && resource.ativo
+                # :confirm => I18n.t('active_admin.delete_confirmation')
+                links += link_to I18n.t('active_admin.deactivate'), resource_path(resource), :method => :delete, :class => "member_link delete_link"
+              end
+              if controller.action_methods.include?('activate') && !resource.ativo
+                # :confirm => I18n.t('active_admin.activate_confirmation')
+                links += link_to I18n.t('active_admin.activate'), activate_resource_path(resource), :method => :put, :class => "member_link activate_link"
+              end
             links
           end
         end

@@ -42,8 +42,8 @@ module ActiveAdmin
         unless collection.respond_to?(:num_pages)
           raise(StandardError, "Collection is not a paginated scope. Set collection.page(params[:page]).per(10) before calling :paginated_collection.")
         end
-        
-      
+
+
         @contents = div(:class => "paginated_collection_contents")
         build_pagination_with_formats(options)
         @built = true
@@ -78,10 +78,10 @@ module ActiveAdmin
       # TODO: Refactor to new HTML DSL
       def build_download_format_links(formats = [:csv, :xml, :json])
         links = formats.collect do |format|
-          link_to format.to_s.upcase, { :format => format}.merge(request.query_parameters.except(:commit, :format))
+          link_to '', { :format => format }.merge(request.query_parameters.except(:commit, :format)), class: ("export_link ico-" + format.to_s.downcase), id: format.to_s.downcase
         end
         div :class => "download_links" do
-		  text_node [I18n.t('active_admin.download'), links].flatten.join("&nbsp;").html_safe
+      	  text_node [I18n.t('active_admin.download'), links].flatten.join("&nbsp;").html_safe
         end
       end
 
