@@ -25,7 +25,7 @@ module ActiveAdmin
             active_admin_application.stylesheets.each do |style|
               text_node(stylesheet_link_tag(style.path, style.options).html_safe)
             end
-            
+
             active_admin_application.javascripts.each do |path|
               script :src => javascript_path(path), :type => "text/javascript"
             end
@@ -63,6 +63,7 @@ module ActiveAdmin
         end
 
         def build_flash_messages
+          flash.delete(:can_redirect)
           if flash.keys.any?
             div :class => 'flashes' do
               flash.each do |type, message|
@@ -129,7 +130,7 @@ module ActiveAdmin
         end
 
         def build_extra_content
-          # Put popovers, etc here 
+          # Put popovers, etc here
         end
 
       end
